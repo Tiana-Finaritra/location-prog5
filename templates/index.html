@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservation de Pack Sonorisation</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main>
+    <h1>Réserver une Sonorisation</h1>
+    <form method="POST" action="/reserve">
+      <label for="startDate">Date de début :</label><br>
+      <input type="date" id="startDate" name="startDate" required><br>
+
+      <label for="duration">Durée (en jours) :</label><br>
+      <input type="number" id="duration" name="duration" min="1" required><br>
+
+      <button type="submit">Réserver</button>
+    </form>
+
+    {% if message %}
+      <p class="{{ 'error' if error else 'success' }}">{{ message }}</p>
+    {% endif %}
+
+    <h2>Réservations existantes :</h2>
+    <ul>
+      {% for r in reservations %}
+        <li>Du {{ r.start.date() }} au {{ r.end.date() }}</li>
+      {% else %}
+        <li>Aucune réservation pour l’instant.</li>
+      {% endfor %}
+    </ul>
+  </main>
+</body>
+</html>
